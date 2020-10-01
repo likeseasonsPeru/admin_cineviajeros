@@ -1,16 +1,19 @@
 import React, { useState, Fragment, useContext } from 'react';
 import Header from '../../components/header';
-import { UserContext } from '../../utils/context';
+import {useSelector} from 'react-redux';
+
 
 const Peliculas = () => {
 
-  const {token} = useContext(UserContext);
-
+  const user = useSelector(state => state.authentication);
+  console.log(user);
 
   return (
     <Fragment>
-      <Header />
-      {token}
+      <p>
+        El token almacenado es {user.token}
+      </p>
+      
     </Fragment>
   )
 

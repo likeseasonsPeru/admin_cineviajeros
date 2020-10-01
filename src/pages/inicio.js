@@ -1,15 +1,17 @@
 import React, {useState, Fragment, useContext} from 'react';
 import {login} from '../endpoints/index';
-import {UserContext} from '../utils/context';
+import {useSelector, useDispatch} from 'react-redux';
+import {authenticate} from '../redux/actions/authActions'
 
 const Login = () => {
-  
-  const {token, setToken} = useContext(UserContext); 
 
     const [datos, setDatos] = useState({
       email: '',
       password: ''
     })
+
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.authentication);
 
     const handleInputChange = (event) => {
       setDatos({
@@ -22,14 +24,8 @@ const Login = () => {
         event.preventDefault()
         console.log('enviando datos...' + datos.email + ' ' + datos.password)
         try {
-          const res =  await login(datos.email, datos.password);
-          if (res.token){
-            setToken(res.token);
-            window.location.href = '/peliculas';
-          } else {
-            // Contraseña o email erroneos
-            console.log('Crendenciales incorrectas')
-          }
+          dispatch(authenticate(datos.email, datos.password));
+          console.log(user);
         }catch (err) {
           console.log(err);
         }

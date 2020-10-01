@@ -18,26 +18,27 @@ const Header = () => {
       <header className="container">
         <div className="row">
           <nav className="col-4 col-md-8 col-lg-6">
-            <NavLink active="active" to="/entradas/1">
-              Compra tus entradas
+            <NavLink active="active" to="/peliculas/">
+              Peliculas
             </NavLink>
-            <NavLink active="active" to="/combos/1">
-              Tus combos
+            <NavLink active="active" to="/combos">
+              Combos
             </NavLink>
             <NavLink active="active" to="/promociones">
               Promociones
             </NavLink>
+            
           </nav>
         </div>
       </header>
       <div className={`sideBarMobile ${!sideBar ? 'sideBarMobileEffect' : ''}`} onClick={() => setSideBar(!sideBar)}> 
         <div className="containerNavHeaderMobile">
         <nav className="col-12">
-          <NavLink active="active" to="/entradas/1" onClick={() => setSideBar(!sideBar)}>
-            Compra tus entradas
+          <NavLink active="active" to="/peliculas" onClick={() => setSideBar(!sideBar)}>
+            Peliculas
           </NavLink>
-          <NavLink active="active" to="/combos/1" onClick={() => setSideBar(!sideBar)}>
-            Tus combos
+          <NavLink active="active" to="/combos" onClick={() => setSideBar(!sideBar)}>
+            Combos
           </NavLink>
           <NavLink active="active" to="/promociones" onClick={() => setSideBar(!sideBar)}>
             Promociones
