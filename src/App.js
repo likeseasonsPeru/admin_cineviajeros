@@ -1,52 +1,41 @@
-import React, { Fragment } from 'react';
-import Inicio from './pages/inicio'
+import React from 'react';
+import Login from './pages/login'
 
-import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
-import Header from './components/header';
-import peliculas from './pages/peliculas/index';
-import combos from './pages/combos';
-import promociones from './pages/promociones';
-import { Provider } from 'react-redux'
-import configureStore from './redux/configStore';
-import { useSelector, useDispatch } from 'react-redux';
+import { Route, BrowserRouter as Router, Switch, Redirect,HashRouter } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
-
+// Containers
+const TheLayout = React.lazy(() => import('./containers/TheLayout'));
+const loading = (
+  <div className="pt-3 text-center">
+    <div className="sk-spinner sk-spinner-pulse"></div>
+  </div>
+)
 const Navigation = () => {
 
   const user = useSelector(state => state.authentication);
-
   return (
-    <Fragment>
-      {user.auth && <Header />}
+    <HashRouter>
+    <React.Suspense fallback={loading}>
       <Switch>
-        <Route exact path="/login" >
-          {user.auth ? (<Redirect to="/peliculas" />) : (<Inicio />)}
+        <Route exact path="/login" name="Login" render={props => <Login {...props}/>}>
+          {user.auth ? (<Redirect to="/peliculas" />) : (<Login />)}
         </Route>
-        <Route path="/peliculas" component={peliculas} />
-        <Route path="/pelicula/:id" />
-        <Route path="/combos" component={combos} />
-        <Route path="/combo/:id" />
-        <Route path="/promociones" component={promociones} />
-        <Route path="/promocione/:id" />
-        <Route path="/banners" />
-        <Route path="/banner/:id" />
+        <Route path="/" name="Inicio" render={props => <TheLayout {...props}/>}>
+          {!user.auth ? (<Login />) : null}
+        </Route>
       </Switch>
-    </Fragment>
+    </React.Suspense>
+  </HashRouter>
   )
 }
 
 
 const App = () => {
-
-  let store = configureStore();
-
   return (
-    <Provider store={store}>
       <Router>
         <Navigation />
-      </Router>
-    </Provider>
-    
+      </Router>    
   );
 }
 
