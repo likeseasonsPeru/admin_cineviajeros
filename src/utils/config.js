@@ -1,1 +1,2 @@
 export const API_URL = 'https://cineviajeros.com/api/public';
+export const TOKEN_API_GET = 'fGWNV2PMHbn44XahR9ybnpECgqk43f4pxVcYdQyUmXfmBnXAcGKSMke8qgguPCzkqgzAArvHgUGxrP9BWBBEd7UYQkTDuTJCcvDGx6zDeTCeZF6qKrgaSc38wWQLhbq2'

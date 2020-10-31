@@ -1,21 +1,49 @@
-import React, { Fragment } from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import { deauthenticate } from '../../redux/actions/authActions';
+import React, { Fragment, useState, useEffect } from 'react';
+import {getPelicula} from '../../endpoints'
+import useInputForm from '../../components/useInputForm';
+const Pelicula = ({match}) => {
+  const [peliculaId] = useState(match.params.id || null)
+  const [showInputs, setShowInputs] = useState(false)
+  const [titlePelicula, titleInput, setTitleMovie] = useInputForm(
+                                               { type: "text", 
+                                                 placeholder: 'Ingrese el título', 
+                                                 name:'title', 
+                                                 label: 'Título' 
+                                               });
+  const [translatePelicula, translateInput, setTranslateMovie] = useInputForm(
+                                               { type: "text", 
+                                                 placeholder: 'Ingrese el título traducido', 
+                                                 name:'translate', 
+                                                 label: 'Título traducido' 
+                                               });
+  useEffect( () => {
+    const getUser = async () => {
+      const data = await getPelicula(peliculaId);
+      if(data.status === 'ok'){
+        setShowInputs(true)
+        setTitleMovie(data.data.title)
+        setTranslateMovie(data.data.translate)
+      }
+    }
+    getUser();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [peliculaId])
 
+  const sendPelicula = () => {
+    const data = {
+      title: titlePelicula,
+      translate: translatePelicula
+    }
+    console.log('sendPelicula->data', data);
+  }
 
-const Pelicula = () => {
-
-  const user = useSelector(state => state.authentication);
-  const dispatch = useDispatch();
   return (
     <Fragment>
-      <p>
-        El token almacenado es {user.token}
-      </p>
-      <button onClick={()=> dispatch(deauthenticate())}>
-        Salir
+      {showInputs ? titleInput : null}
+      {showInputs ? translateInput : null}
+      <button onClick={() => sendPelicula()}>
+        sendPelicula
       </button>
-      
     </Fragment>
   )
 
