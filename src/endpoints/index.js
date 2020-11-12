@@ -426,13 +426,15 @@ export const editHorario = async (token,idHorario,horario) => {
         dataToSend.append(key, horario[key]);
       }
     });
+
     let data =  await fetch(`${API_URL}/horarios/${idHorario}`, {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
+        'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
-      body:dataToSend
+      body:JSON.stringify(horario)
     }).then(response => response.json());
     return data;
   }catch(error){

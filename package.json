@@ -1,5 +1,6 @@
 {
   "name": "admin_cineviajeros",
+  "homepage": "https://cineviajeros.com/admin",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
