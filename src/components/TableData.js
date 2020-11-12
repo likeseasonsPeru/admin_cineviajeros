@@ -1,5 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import React, {
+  useState,
+  useEffect
+} from 'react'
+import {
+  useHistory,
+  useLocation
+} from 'react-router-dom'
 import {
   CCard,
   CCardBody,
@@ -10,8 +16,6 @@ import {
   CPagination
 } from '@coreui/react'
 
-
-
 /* 
 fields = [
                 { key: 'name', _classes: 'font-weight-bold' },
@@ -19,20 +23,26 @@ fields = [
               ]
 */
 
-const TableData = ({titleTable, items, fields, itemsPerPage, scopedSlots , linkPage}) => {
-    console.log("TableData -> items", items.length)
+const TableData = ({
+    titleTable,
+    items,
+    fields,
+    itemsPerPage,
+    scopedSlots,
+    linkPage
+  }) => {
     const history = useHistory()
     const queryPage = useLocation().search.match(/page=([0-9]+)/, '')
     const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1)
     const [page, setPage] = useState(currentPage)
-    const [numberOfPages] = useState(items.length % 2 === 0 ? 
-                                    items.length/itemsPerPage < 1 ? 1 :  items.length/itemsPerPage  
-                                    : Math.trunc(items.length/itemsPerPage) + 1)
-  
+    const [numberOfPages] = useState(items.length % 2 === 0 ?
+      items.length / itemsPerPage < 1 ? 1 : items.length / itemsPerPage :
+      Math.trunc(items.length / itemsPerPage) + 1)
+
     const pageChange = newPage => {
       currentPage !== newPage && history.push(`/${linkPage}?page=${newPage}`)
     }
-  
+
     useEffect(() => {
       currentPage !== page && setPage(currentPage)
     }, [currentPage, page])
@@ -42,7 +52,9 @@ const TableData = ({titleTable, items, fields, itemsPerPage, scopedSlots , linkP
         <CCol xl={12}>
           <CCard>
             <CCardHeader>
+              <h3>
               {titleTable}
+              </h3>
             </CCardHeader>
             <CCardBody>
             <CDataTable

@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import {getPromotions} from '../../endpoints'
 import TableData from '../../components/TableData';
-import {CImg} from '@coreui/react'
+import {CImg,CButton} from '@coreui/react'
 import {API_URL} from '../../utils/config'
+import {useHistory} from 'react-router-dom'
 const Promociones = () => {
   const [promociones, setPromociones] = useState(null)
   const settingPromociones = async () => {
@@ -15,9 +16,23 @@ const Promociones = () => {
   useEffect(() => {
     settingPromociones();
   }, [])
+  const history = useHistory();
+  const goTo = () => {
+    history.push("/promociones/add");
+  }
   return (
     <Fragment>
+    <div className="col-12 text-right">
+            <CButton 
+              color="success" 
+              className="mb-3"
+              onClick={() => goTo()}
+            >
+              + Agregar una promoción
+          </CButton>
+      </div>
       {
+        
        promociones ? (
          <TableData
           titleTable='Promociones'

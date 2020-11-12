@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import {getCombos} from '../../endpoints'
 import TableData from '../../components/TableData';
-import {CImg} from '@coreui/react'
+import {CImg,CButton} from '@coreui/react'
 import {API_URL} from '../../utils/config'
+import {useHistory} from 'react-router-dom'
 const Combos = () => {
   const [combos, setCombos] = useState(null)
   const settingCombos = async () => {
@@ -15,8 +16,22 @@ const Combos = () => {
   useEffect(() => {
     settingCombos();
   }, [])
+
+  const history = useHistory();
+  const goTo = () => {
+    history.push("/combos/add");
+  }
   return (
     <Fragment>
+    <div className="col-12 text-right">
+            <CButton 
+              color="success" 
+              className="mb-3"
+              onClick={() => goTo()}
+            >
+              + Agregar un combo
+          </CButton>
+      </div>
       {
        combos ? (
          <TableData

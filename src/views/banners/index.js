@@ -2,7 +2,8 @@ import React, { Fragment, useEffect, useState } from 'react';
 import {getBanners} from '../../endpoints'
 import {API_URL} from '../../utils/config'
 import TableData from '../../components/TableData';
-import {CButton,CImg} from '@coreui/react'
+import {CButton,CImg} from '@coreui/react';
+import {useHistory} from 'react-router-dom'
 const Banners = () => {
   const [banners, setBanners] = useState(null)
   const settingBanners = async () => {
@@ -21,9 +22,22 @@ const Banners = () => {
   useEffect(() => {
     settingBanners();
   }, [])
+  const history = useHistory();
+  const goTo = () => {
+    history.push("/banners/add");
+  }
   return (
     <Fragment>
       <Fragment>
+      <div className="col-12 text-right">
+            <CButton 
+              color="success" 
+              className="mb-3"
+              onClick={() => goTo()}
+            >
+              + Agregar un banner
+          </CButton>
+      </div>
      {
        banners ? (
          <TableData
