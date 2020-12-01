@@ -15,26 +15,19 @@ export const JsonToExcel = () => {
     const getEmailFromBD = async () => {
         const data = await exportEmailToExcel();
         if( data) {
-            moment( data.created_at ).calendar();
-            
             setEmails(data);
         }
       }
 
-
     useEffect(() => {
         getEmailFromBD();
-        console.log(emails)
         
     }, [])
 
-    console.log(emails)
-    try {
-        moment(emails.created_at).calendar()
-    
-    } catch (error) {
-        console.log('No se transformo...')
-    }
+    emails.forEach( aux => {
+        //aux.created_at = moment( new Date( aux.created_at )).calendar(); //Format date = (Month/ Days/ Years)
+        aux.created_at = moment( new Date( aux.created_at )).format("DD/MM/YY"); //Format date = (Days/ Month/ Years)
+    });
     
     return(
         <>
