@@ -19,6 +19,7 @@ import CIcon from '@coreui/icons-react'
 import navigation from './_nav'
 
 import {deauthenticate} from '../redux/actions/authActions'
+import  { JsonToExcel }  from '../utils/jsonToExcel'
 
 const TheSidebar = () => {
   const dispatch = useDispatch()
@@ -52,6 +53,11 @@ const TheSidebar = () => {
             CSidebarNavTitle
           }}
         />
+          {/* In this way it generates a warning */}
+        <CButton  color="primary mb-2">
+          <JsonToExcel />
+        </CButton>
+
         <CButton color="primary" onClick={() => dispatch(deauthenticate())}>
           Cerrar Sesión
         </CButton>

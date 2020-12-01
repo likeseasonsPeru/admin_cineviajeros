@@ -53,6 +53,12 @@ const Banner = ({
       name: 'description',
       label: 'Descripción:'
     });
+    const [urlImgBanner, urlImgInput, setUrlImgBanner] = useInputForm({
+      type: "text",
+      placeholder: 'Ingrese la url del imágen',
+      name: 'url_imagen',
+      label: 'URL del Imágen:'
+    });
     const [urlTrailerBanner, urlTrailerInput, setUrlTrailerBanner] = useInputForm({
       type: "text",
       placeholder: 'Ingrese la url del trailer',
@@ -85,6 +91,7 @@ const Banner = ({
           setImageBanner(urlFromAPI)
           setTitleBanner(data.data.title)
           setDescriptionBanner(data.data.description)
+          setUrlImgBanner(data.data.url_imagen)
           setUrlTrailerBanner(data.data.url_trailer)
           setUrlCompraBanner(data.data.url_compra)
           const estadoDefault = STATE_BANNER.filter(estado => estado.value === data.data.actived)
@@ -101,6 +108,7 @@ const Banner = ({
         title: titleBanner,
         image: imageBanner,
         description: descriptionBanner,
+        url_imagen: urlImgBanner,
         url_compra: urlCompraBanner,
         url_trailer: urlTrailerBanner,
         actived: stateBanner.value
@@ -138,6 +146,7 @@ const Banner = ({
           <div className="col-12 col-md-7 col-lg-8">
            {titleInput}
            {descriptionInput}
+           {urlImgInput}
            {urlTrailerInput}
            {urlCompraInput}
            {stateInput}

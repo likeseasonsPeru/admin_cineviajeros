@@ -43,6 +43,12 @@ const Banner = ({
       name: 'description',
       label: 'Descripción:'
     });
+    const [urlImgBanner, urlImgInput] = useInputForm({
+      type: "text",
+      placeholder: 'Ingrese la url del imágen',
+      name: 'url_imagen',
+      label: 'URL del Imágen:'
+    });
     const [urlTrailerBanner, urlTrailerInput] = useInputForm({
       type: "text",
       placeholder: 'Ingrese la url del trailer',
@@ -61,11 +67,13 @@ const Banner = ({
     }
 
     const sendBanner = async () => {
-      if (titleBanner && imageBanner && descriptionBanner && urlTrailerBanner) {
+      //titleBanner && imageBanner && descriptionBanner && urlTrailerBanner
+      if ( imageBanner) {
         const data = {
           title: titleBanner,
           image: imageBanner,
           description: descriptionBanner,
+          url_imagen: urlImgBanner,
           url_compra: urlCompraBanner,
           url_trailer: urlTrailerBanner
         }
@@ -81,7 +89,7 @@ const Banner = ({
           console.log(error)
         }
       } else {
-        alert('Completa todos los campos')
+        alert('La imágen es obligatoria.')
       }
     }
 
@@ -97,6 +105,7 @@ const Banner = ({
           <div className="col-12 col-md-7 col-lg-8">
            {titleInput}
            {descriptionInput}
+           {urlImgInput}
            {urlTrailerInput}
            {urlCompraInput}
           </div>
