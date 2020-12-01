@@ -456,3 +456,19 @@ export const deleteHorario = async (token,id) => {
     return error
   } 
 }
+
+export const exportEmailToExcel =  () => {
+  try{
+    let data =  fetch(`${API_URL}/subscriptions`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'X-Authorization': TOKEN_API_GET,
+      },
+    }).then(response => response.json());
+    return data;
+  }catch(error){
+    return error
+  }
+}
+

@@ -4,6 +4,7 @@ import {API_URL} from '../../utils/config'
 import TableData from '../../components/TableData';
 import {CButton,CImg} from '@coreui/react';
 import {useHistory} from 'react-router-dom'
+import ExportToExcel from '../../utils/jsonToExcel';
 const Banners = () => {
   const [banners, setBanners] = useState(null)
   const settingBanners = async () => {
