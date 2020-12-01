@@ -25,8 +25,8 @@ export const JsonToExcel = () => {
     }, [])
 
     emails.forEach( aux => {
-        //aux.created_at = moment( new Date( aux.created_at )).calendar(); //Format date = (Month/ Days/ Years)
-        aux.created_at = moment( new Date( aux.created_at )).format("DD/MM/YY"); //Format date = (Days/ Month/ Years)
+        //aux.created_at = moment( aux.created_at ).calendar(); //Format date = (Month/ Days/ Years)
+        aux.created_at = moment( aux.created_at ).format("DD/MM/YY"); //Format date = (Days/ Month/ Years)
     });
     
     return(
