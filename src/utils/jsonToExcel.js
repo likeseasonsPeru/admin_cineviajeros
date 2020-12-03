@@ -34,7 +34,7 @@ export const JsonToExcel = () => {
   return (
     <>
       {emails ? (
-        <ExcelFile element={<a>Exportar a Excel</a>} filename="Emails">
+        <ExcelFile element={<div>Exportar a Excel</div>} filename="Emails">
           <ExcelSheet data={emails} name="Correos suscriptos">
             <ExcelColumn label="Emails" value="email" />
             <ExcelColumn label="Fecha de creación" value="created_at" />

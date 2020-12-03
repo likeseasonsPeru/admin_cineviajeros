@@ -91,7 +91,7 @@ const Banner = ({
           setImageBanner(urlFromAPI)
           setTitleBanner(data.data.title)
           setDescriptionBanner(data.data.description)
-          setUrlImgBanner(data.data.url_imagen)
+          setUrlImgBanner(data.data.url)
           setUrlTrailerBanner(data.data.url_trailer)
           setUrlCompraBanner(data.data.url_compra)
           const estadoDefault = STATE_BANNER.filter(estado => estado.value === data.data.actived)
@@ -108,7 +108,7 @@ const Banner = ({
         title: titleBanner,
         image: imageBanner,
         description: descriptionBanner,
-        url_imagen: urlImgBanner,
+        url: urlImgBanner,
         url_compra: urlCompraBanner,
         url_trailer: urlTrailerBanner,
         actived: stateBanner.value
