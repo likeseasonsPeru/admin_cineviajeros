@@ -149,7 +149,7 @@ const Combo = ({
               onClick={() => deleteComboMovies()}
               className="mb-3 mr-2"
               >
-              Eliminar promoción
+              Eliminar combo
             </CButton>
             <CButton
               color="dark"
