@@ -66,7 +66,7 @@ const Promocion = ({
 
     let history = useHistory();
     const goBack = () => {
-      history.push("/banners");
+      history.push("/promociones");
     }
 
     useEffect(() => {
