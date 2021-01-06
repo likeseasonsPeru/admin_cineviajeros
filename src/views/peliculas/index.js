@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { getPeliculas, sortUpdatedPeliculas } from "../../endpoints";
+import { getPeliculas, sortUpdated } from "../../endpoints";
 import { CButton } from "@coreui/react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -68,22 +68,14 @@ const Peliculas = (props) => {
   };
 
   const sendArrOrder = async () => {
-    let sendData = "";
-
-    for (let aux = 0; aux < peliculas.length; aux++) {
-      peliculas[aux].order = aux + 1;
-
-      sendData = peliculas;
+    let sendData = peliculas;
+    for (let aux = 0; aux < sendData.length; aux++) {
+      sendData[aux].order = aux + 1;
     }
-
-    console.log("before for", sendData);
-
     try {
-      const resp = await sortUpdatedPeliculas(user.token, sendData);
-
-      if (resp.status === "ok") {
-        console.log(resp, "SEND!!");
-      }
+      const resp = await sortUpdated(user.token, 'peliculas', sendData);
+      if (resp.status === "ok") 
+        history.go(0)
     } catch (error) {
       console.log(error);
     }
@@ -202,7 +194,7 @@ const Peliculas = (props) => {
                                 <CButton
                                   id="table-btn"
                                   onClick={() =>
-                                    history.push(`/promociones/${id}`)
+                                    history.push(`/peliculas/${id}`)
                                   }
                                   color={getBadge(category)}
                                   size={"sm"}
