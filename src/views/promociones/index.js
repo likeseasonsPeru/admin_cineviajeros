@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { getPromotions, sortUpdatedPromociones } from "../../endpoints";
+import { getPromotions, sortUpdated } from "../../endpoints";
 // import TableData from '../../components/TableData';
 import { CImg, CButton } from "@coreui/react";
 import { API_URL } from "../../utils/config";
@@ -13,7 +13,7 @@ const Promociones = () => {
   const settingPromociones = async () => {
     const data = await getPromotions();
     if (data) {
-      setPromociones(data);
+      setPromociones(data.reverse());
     }
   };
 
@@ -36,22 +36,14 @@ const Promociones = () => {
     console.log(items);
   };
   const sendArrOrder = async () => {
-    let sendData = "";
-
-    for (let aux = 0; aux < promociones.length; aux++) {
-      promociones[aux].order = aux + 1;
-
-      sendData = promociones;
+    let sendData = promociones;
+    for (let aux = 0; aux < sendData.length; aux++) {
+      sendData[aux].order = aux + 1;
     }
-
-    console.log("before for", sendData);
-
     try {
-      const resp = await sortUpdatedPromociones(user.token, sendData);
-
-      if (resp.status === "ok") {
-        console.log(resp, "SEND!!");
-      }
+      const resp = await sortUpdated(user.token, 'promotions', sendData);
+      if (resp.status === "ok") 
+        history.go(0)
     } catch (error) {
       console.log(error);
     }

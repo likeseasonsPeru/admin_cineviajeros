@@ -95,21 +95,15 @@ export const editPelicula = async (token, id, pelicula) => {
     return error;
   }
 };
-export const sortUpdatedPeliculas = async (token, peliculas) => {
+export const sortUpdated = async (token, table, dataSend) => {
   try {
-    let dataToSend = new FormData();
-    Object.keys(peliculas).forEach((key) => {
-      if (peliculas[key]) {
-        dataToSend.append(key, peliculas[key]);
-      }
-    });
-    let data = await fetch(`${API_URL}/sortUpdate/peliculas`, {
+    let data = await fetch(`${API_URL}/sortUpdate/${table}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: dataToSend,
+      body: JSON.stringify(dataSend),
     }).then((response) => response.json());
     return data;
   } catch (error) {

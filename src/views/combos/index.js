@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { getCombos, sortUpdatedCombos } from "../../endpoints";
+import { getCombos, sortUpdated } from "../../endpoints";
 import TableData from "../../components/TableData";
 import { CImg, CButton } from "@coreui/react";
 import { API_URL } from "../../utils/config";
@@ -7,12 +7,13 @@ import { useHistory } from "react-router-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useSelector } from "react-redux";
 const Combos = () => {
-  const [combos, setCombos] = useState(null);
+  const [combos, setCombos] = useState("");
   const user = useSelector((state) => state.authentication);
+
   const settingCombos = async () => {
     const data = await getCombos();
     if (data) {
-      setCombos(data);
+      setCombos(data.reverse());
     }
   };
 
@@ -35,23 +36,17 @@ const Combos = () => {
     setCombos(items);
     console.log(items);
   };
+
+
   const sendArrOrder = async () => {
-    let sendData = "";
-
-    for (let aux = 0; aux < combos.length; aux++) {
-      combos[aux].order = aux + 1;
-
-      sendData = combos;
+    let sendData = combos;
+    for (let aux = 0; aux < sendData.length; aux++) {
+      sendData[aux].order = aux + 1;
     }
-
-    console.log("before for", sendData);
-
     try {
-      const resp = await sortUpdatedCombos(user.token, sendData);
-
-      if (resp.status === "ok") {
-        console.log(resp, "SEND!!");
-      }
+      const resp = await sortUpdated(user.token, 'combos', sendData);
+      if (resp.status === "ok") 
+         history.go(0)
     } catch (error) {
       console.log(error);
     }
@@ -112,16 +107,6 @@ const Combos = () => {
           <div className="row">
             <div className="col-9">
               <h1>Combos</h1>
-            </div>
-
-            <div className="col-3">
-              <CButton
-                color="success"
-                className="peliculas-btn-agregar"
-                onClick={() => goTo()}
-              >
-                + Agregar Un Combo
-              </CButton>
             </div>
           </div>
           <DragDropContext onDragEnd={handleOnDragEnd}>
