@@ -255,8 +255,9 @@ export const createBanner = async (token, banner) => {
 export const editBanner = async (token, id, banner) => {
   try {
     let dataToSend = new FormData();
-    Object.keys(banner).forEach((key) => {
-      if (banner[key]) {
+
+    Object.keys(banner).forEach(key => {
+      if (banner[key] !== null) {
         dataToSend.append(key, banner[key]);
       }
     });
